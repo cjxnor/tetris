@@ -24,10 +24,8 @@ public class GameService {
      */
     public void keyUp() {
 
-        //移动处理
-        if(canMove(0,-1)) {
-            this.gameDto.getGameAct().PointMove(0, -1);
-        }
+        //旋转
+        this.gameDto.getGameAct().round();
     }
 
     /**
@@ -36,9 +34,18 @@ public class GameService {
     public void keyDown() {
 
         //移动处理
-        if(canMove(0,1)) {
-            this.gameDto.getGameAct().PointMove(0, 1);
+        if(!this.gameDto.getGameAct().PointMove(0, 1)){
+            //获得游戏地图对象
+            boolean[][] gameMap = this.gameDto.getGameMap();
+            Point[] gamePoint = this.gameDto.getGameAct().getActPoints();
+
+            for (Point p : gamePoint ){
+                gameMap[p.x][p.y] = true;
+            }
+
+
         }
+
 
     }
 
@@ -48,9 +55,8 @@ public class GameService {
     public void keyLeft() {
 
         //移动处理
-        if(canMove(-1,0)) {
-            this.gameDto.getGameAct().PointMove(-1, 0);
-        }
+        this.gameDto.getGameAct().PointMove(-1, 0);
+
 
     }
 
@@ -60,23 +66,9 @@ public class GameService {
     public void keyRight() {
 
         //移动处理
-        if(canMove(1,0)) {
-            this.gameDto.getGameAct().PointMove(1, 0);
-        }
+        this.gameDto.getGameAct().PointMove(1, 0);
 
     }
 
-    private boolean canMove(int pointMoveX,int pointMoveY){
 
-        Point[] points = this.gameDto.getGameAct().getActPoints();
-
-        for(Point p : points){
-            int newX = p.x + pointMoveX;
-            int newY = p.y + pointMoveY;
-            //TODO  配置
-            if(newX < 0 || newX > 9 || newY < 0 || newY > 17)
-                return false;
-        }
-        return true;
-    }
 }

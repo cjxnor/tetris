@@ -49,6 +49,23 @@ public class GameDto {
      */
     private int nowRemoveLines;
 
+    /**
+     * 构造函数
+     */
+    public GameDto(){
+        dtoInit();
+    }
+
+    /**
+     * dto初始化
+     */
+    public void dtoInit(){
+        //TODO  硬编码
+        this.gameMap = new boolean[10][18];
+
+        //TODO  初始化所有游戏对象
+    }
+
     public List<Player> getDbRecord() {
         return dbRecord;
     }
